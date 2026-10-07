@@ -1,111 +1,511 @@
 .contact-section {
-  /* background-color: #eaf0ff; */
-  padding: 40px 20px;
-  min-height: 60vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  overflow: hidden;
+}
+
+/* giant outlined background word */
+.contact-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: clamp(5rem, 18vw, 16rem);
+  line-height: 1;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--border);
+  opacity: 0.55;
+  pointer-events: none;
+  user-select: none;
+  animation: watermarkDrift 14s ease-in-out infinite;
+}
+
+@keyframes watermarkDrift {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-48%, -52%); }
+}
+
+.contact-section .container {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-wrapper {
-  display: flex;
-  flex-direction: row;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  max-width: 900px;
-  width: 100%;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 48px;
+  align-items: stretch;
 }
 
-.contact-image {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.contact-image img {
-  width: 100%;
-  max-width: 350px;
-}
-
-.contact-form-container {
-  flex: 1;
-  padding: 40px 30px;
-}
-
-.contact-title {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-.contact-title .highlight {
-  color: #7e22ce;
-}
-
-.contact-form {
+/* ---------- Left column ---------- */
+.contact-info {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
 }
 
-.contact-form input,
-.contact-form textarea {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #eaf0ff;
-  outline: none;
-  width: 100%;
+.contact-intro h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin-bottom: 10px;
 }
 
-.contact-form .submit-wrapper {
+.contact-intro p {
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.contact-card {
+  position: relative;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  box-shadow: none;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
 }
 
-.contact-form button {
-  background-color: #3c1dc6;
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.contact-card:hover {
+  transform: translateX(8px);
+  border-color: var(--primary);
+}
+
+.contact-card:hover::before {
+  opacity: 0.07;
+}
+
+.contact-card > * {
+  position: relative;
+}
+
+.contact-card .info-icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--gradient);
   color: #fff;
-  font-size: 14px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.contact-card:hover .info-icon {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.contact-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-card .info-label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.contact-card .info-value {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.copy-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: background-color 0.3s ease;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
 }
 
-.contact-form button:hover {
-  background-color: #2a0dad;
+.copy-btn:hover {
+  color: var(--text);
+  border-color: var(--primary);
 }
 
-.send-icon {
-  font-size: 16px;
+.copy-btn.copied {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
 }
 
-@media screen and (max-width: 768px) {
-  .contact-wrapper {
-    flex-direction: column;
-    padding: 20px;
-  }
+.quick-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 4px;
+}
 
-  .contact-form-container {
-    padding: 30px 20px;
-  }
+.quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-weight: 600;
+  font-size: 0.82rem;
+  transition: transform 0.3s, background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
 
-  .contact-title {
-    text-align: center;
-  }
+.quick-btn svg {
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+}
 
-  .contact-form .submit-wrapper {
-    justify-content: center;
-  }
+.quick-btn:hover {
+  transform: translateY(-6px);
+  color: #fff;
+  border-color: transparent;
+}
+
+.quick-btn:hover svg {
+  transform: scale(1.2) rotate(-6deg);
+}
+
+.quick-btn.whatsapp:hover { background: #25d366; box-shadow: 0 12px 26px rgba(37, 211, 102, 0.4); }
+.quick-btn.linkedin:hover { background: #0a66c2; box-shadow: 0 12px 26px rgba(10, 102, 194, 0.4); }
+.quick-btn.github:hover { background: #24292f; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4); }
+
+/* ---------- Form card with spinning gradient border ---------- */
+.contact-form-wrap {
+  display: flex;
+}
+
+.form-glow {
+  position: relative;
+  width: 100%;
+  padding: 2px;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(139, 92, 246, 0.25);
+}
+
+.form-glow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 55%,
+    var(--primary) 70%,
+    var(--primary-2) 85%,
+    transparent 100%
+  );
+  animation: borderSpin 5s linear infinite;
+}
+
+@keyframes borderSpin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.contact-form-container {
+  position: relative;
+  height: 100%;
+  padding: 34px 32px;
+  border-radius: 24px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.form-header-icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--gradient);
+  color: #fff;
+  font-size: 1.2rem;
+  animation: iconBob 3s ease-in-out infinite;
+}
+
+@keyframes iconBob {
+  50% { transform: translateY(-5px) rotate(-6deg); }
+}
+
+.form-header h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.form-header p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.contact-form {
+  display: grid;
+  gap: 20px;
+}
+
+.field {
+  position: relative;
+}
+
+.field-icon {
+  position: absolute;
+  left: 16px;
+  top: 19px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  transition: color 0.25s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.field:focus-within .field-icon {
+  color: var(--primary);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 22px 16px 8px 44px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  resize: none;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--primary);
+  background: var(--card-hover);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.18);
+}
+
+.field label {
+  position: absolute;
+  left: 44px;
+  top: 16px;
+  color: var(--muted);
+  pointer-events: none;
+  transition: transform 0.2s, color 0.2s;
+  transform-origin: left top;
+}
+
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label {
+  transform: translateY(-10px) scale(0.78);
+  color: var(--primary);
+}
+
+.char-count {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  transition: color 0.25s;
+}
+
+.char-count.warn {
+  color: #f59e0b;
+}
+
+/* ---------- Send button ---------- */
+.send-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px 28px;
+  border: none;
+  border-radius: 14px;
+  background: var(--gradient);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.send-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+}
+
+.send-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(139, 92, 246, 0.55);
+}
+
+.send-btn:hover:not(:disabled)::after {
+  left: 130%;
+  transition: left 0.7s ease;
+}
+
+.send-plane {
+  transition: transform 0.4s;
+}
+
+.send-btn:hover:not(:disabled) .send-plane {
+  transform: translate(5px, -5px) rotate(8deg);
+}
+
+.send-btn.sending {
+  cursor: wait;
+  opacity: 0.85;
+}
+
+.send-btn.sending .send-plane {
+  animation: planeFly 0.9s ease-in-out infinite;
+}
+
+@keyframes planeFly {
+  0% { transform: translate(0, 0); opacity: 1; }
+  60% { transform: translate(26px, -18px); opacity: 0; }
+  61% { transform: translate(-26px, 18px); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+.form-status {
+  min-height: 20px;
+}
+
+.status-error {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ef4444;
+  font-weight: 500;
+  animation: heroIn 0.4s ease both;
+}
+
+/* ---------- Success overlay ---------- */
+.success-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 30px;
+  text-align: center;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.96);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.success-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.success-overlay h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.7rem;
+}
+
+.success-overlay p {
+  color: var(--muted);
+  max-width: 300px;
+  margin-bottom: 8px;
+}
+
+.success-check {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22c55e, #06b6d4);
+  color: #fff;
+  font-size: 2rem;
+  transform: scale(0);
+}
+
+.success-check::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #22c55e;
+  opacity: 0;
+}
+
+.success-overlay.show .success-check {
+  animation: checkPop 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.5) 0.15s forwards;
+}
+
+.success-overlay.show .success-check::after {
+  animation: checkRing 1.4s ease-out 0.5s infinite;
+}
+
+@keyframes checkPop {
+  to { transform: scale(1); }
+}
+
+@keyframes checkRing {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  .contact-wrapper { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .contact-form-container { padding: 26px 20px; }
+  .copy-btn span { display: none; }
+  .quick-btn span { font-size: 0.75rem; }
 }
